@@ -210,7 +210,7 @@ var clockCom = React.createClass({displayName: 'clockCom',
 // 容器组件
 var pane = React.createClass({displayName: 'pane',
 	componentDidMount: function() {
-		console.log(this.props.children);
+		// console.log(this.props.children);
 	},
     render: function() {
         return (
@@ -268,6 +268,96 @@ var css3 = React.createClass({displayName: 'css3',
         );
     }
 });
+// 获取DOM节点的值，refs
+var refNode = React.createClass({displayName: 'refNode',
+	getInitialState: function() {
+		return {
+			account: '',
+			password: '', 
+			select: 'A',
+			radio: 'A',
+			checkbox: [],
+			textarea: 'this id textarea!!!'
+		};
+	},
+	handleSubmit: function (e){
+		e.preventDefault();
+		// console.log(e.native());
+		var formDate = {
+			account: this.refs['account'].getDOMNode().value,
+			password: this.refs['password'].getDOMNode().value,
+			select: this.refs['select'].getDOMNode().value,
+			radio: this.state.radio,
+			checkbox: this.state.checkbox,
+			textarea: this.refs['textarea'].getDOMNode().value
+		};
+
+		console.log(formDate);
+	},
+	goodRadio: function (e){
+		this.setState({
+			radio: e.target.value 
+		});
+	},
+	goodCheck: function (e){
+		var checkValue = this.state.checkbox.slice();
+		var newVal = e.target.value;
+		var index = checkValue.indexOf(newVal);
+		if (index == -1) {
+			checkValue.push( newVal );
+		}else{
+			checkValue.splice(index, 1)
+		}
+		this.setState({
+			checkbox: checkValue 
+		});
+	},
+    render: function() {
+        return (
+        	React.DOM.form( {onSubmit:this.handleSubmit, className:  "ez-login"}, 
+				React.DOM.div( {className:"row title"}, 
+					React.DOM.h1(null, "登录")
+				),
+				React.DOM.div( {className:"row account"}, 
+					React.DOM.label(null, "用户"),
+					React.DOM.input( {type:"text", defaultValue:"", placeholder:"请输入用户名", ref:"account"})
+				),
+				React.DOM.div( {className:"row pass"}, 
+					React.DOM.label(null, "密码"),
+					React.DOM.input( {type:"password", ref:"password", placeholder:"请输入密码", ref:"password"})
+				),
+				React.DOM.div( {classNmae:"row"}, 
+					React.DOM.select( {defaultValue:"A", ref:"select"}, 
+						React.DOM.option( {value:"A"}, "A"),
+						React.DOM.option( {value:"B"}, "B"),
+						React.DOM.option( {value:"C"}, "C")
+					)
+				),
+				React.DOM.div( {className:"row"}, 
+					" A ",
+					React.DOM.input( {onChange:this.goodRadio, type:"radio", value:"A", name:"goodRadio", defaultChecked:true}),
+					" B ",
+					React.DOM.input( {onChange:this.goodRadio, type:"radio", value:"B", name:"goodRadio"}),
+					" C ",
+					React.DOM.input( {onChange:this.goodRadio, type:"radio", value:"C", name:"goodRadio"})
+				),
+				React.DOM.div( {className:"remember"}, 
+					React.DOM.input( {onChange:this.goodCheck, type:"checkbox", name:"goodCheckbox", value:"0"}),
+					" 玩游戏 ",
+					React.DOM.input( {onChange:this.goodCheck, type:"checkbox", name:"goodCheckbox", value:"1"}),
+					" 泡妞 ",
+					React.DOM.input( {onChange:this.goodCheck, type:"checkbox", name:"goodCheckbox", value:"2"}),
+					" 上网 "
+				),
+				React.DOM.div( {className:"row"}),
+					React.DOM.textarea( {name:"", defaultValue:this.state.textarea, ref:"textarea"}),
+				React.DOM.div( {className:"row button"}, 
+					React.DOM.button( {type:"submit"}, "登录")
+				)
+			)
+        );
+    }
+});
 
 React.renderComponent(
 	React.DOM.div(null, 
@@ -283,7 +373,8 @@ React.renderComponent(
 		databind(null ),
 		clockCom(null ),
 		pane( {title:"额额额额"}, React.DOM.p(null, "asdasdasdasda")),
-		css3( {value:"200"} )
+		css3( {value:"200"} ),
+		refNode(null )
 	),
 	document.getElementById('app')
 );

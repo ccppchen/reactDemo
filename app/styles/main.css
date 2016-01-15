@@ -56,3 +56,43 @@ body {
     transform-origin: 1px 45px;
     transition: transform 2s;
 }
+
+/*form*/
+.ez-login{
+    background : #f1f2ff;
+    padding: 10px;
+}
+.ez-login .row.title{
+    margin-bottom: 10px;
+    background:#ff9244;
+    color: white;
+    border-radius:5px;
+}
+.ez-login .row h1{
+    padding: 0px;
+    font-size: 16px;    
+    margin:5px;
+    text-align:center;
+    flex:1 0 auto;
+}
+.ez-login .row{
+    display:flex;
+    flex-flow:row nowrap;
+    padding:5px 0px;
+    height: 30px;
+}
+.ez-login .row label{
+    display : inline-block;
+    width: 80px;
+}
+.ez-login .row > input{
+    flex:1 0 auto;
+}
+.ez-login button{
+    display: block;
+    width: 100%;
+    height:30px;
+    margin:5px 0px;
+}
+
+
