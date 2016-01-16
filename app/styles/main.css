@@ -95,4 +95,10 @@ body {
     margin:5px 0px;
 }
 
+/*rem css*/
+@media screen and (min-width: 320px) and (max-width: 640px) {
+    html{
+        font-size: 62.5%;
+    }
+}
 
